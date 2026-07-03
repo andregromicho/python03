@@ -2,32 +2,66 @@ import math
 
 
 class err_syntax(Exception):
-    def __init__(self, msg: str = "Error: You must provide exactly three coordinates separated by commas."):
+    def __init__(self, msg: str = "Invalid syntax"):
         super().__init__(msg)
 
 
-def check_elements(val_list: list[str]) -> None:
-    if len(val_list) != 3:
+def check_elements(coords_list: list[str]) -> None:
+    if len(coords_list) != 3:
         raise err_syntax()
 
 
 def get_player_pos() -> tuple[float, float, float]:
-    val_str = input("Enter new coordinates as floats in format 'x,y,z': ").split(",")
-
+    user_input = input("Enter new coordinates as floats in format 'x,y,z': ")
+    coord_str = user_input.split(",")
     try:
-        check_elements(val_str)
+        check_elements(coord_str)
     except err_syntax as e:
         print(f"{e}")
         return get_player_pos()
 
-    val_float = []
+    coord_float = []
     try:
-        for i in val_str:
-            parametro_atual = i.strip()
-            val_float.append(float(parametro_atual))
+        for i in coord_str:
+            current_coord = i.strip()
+            coord_float.append(float(current_coord))
     except ValueError:
-        print(f"Error on parameter '{parametro_atual}': could not convert string to float: '{parametro_atual}'")
-        return get_player_pos()  
+        print(
+            f"Error on parameter '{current_coord}': "
+            f"could not convert string to float: '{current_coord}'"
+        )
+        return get_player_pos()
 
-    x, y, z = val_float
+    x = coord_float[0]
+    y = coord_float[1]
+    z = coord_float[2]
     return (x, y, z)
+
+
+def main():
+    print("=== Game Coordinate System ===")
+
+    print("Get a first set of coordinates")
+    pos1 = get_player_pos()
+    print(f"Got a first tuple: {pos1}")
+    print(f"It includes: X={pos1[0]}, Y={pos1[1]}, Z={pos1[2]}")
+
+    dist_to_center = math.sqrt(pos1[0] ** 2 + pos1[1] ** 2 + pos1[2] ** 2)
+    print(f"Distance to center: {round(dist_to_center, 4)}")
+
+    print("Get a second set of coordinates")
+    pos2 = get_player_pos()
+
+    dist_between = math.sqrt(
+        (pos2[0] - pos1[0]) ** 2
+        + (pos2[1] - pos1[1]) ** 2
+        + (pos2[2] - pos1[2]) ** 2
+    )
+    print(
+        f"Distance between the 2 sets of coordinates: "
+        f"{round(dist_between, 4)}"
+    )
+
+
+if __name__ == "__main__":
+    main()
