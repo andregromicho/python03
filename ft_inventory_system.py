@@ -5,9 +5,7 @@ def parse_arguments() -> dict[str, int]:
     """Processa os argumentos da linha de comandos e devolve o inventário."""
     inventory = {}
 
-    # sys.argv[0] é o nome do próprio script, por isso saltamos e começamos no 1
     for arg in sys.argv[1:]:
-        # Verificar sintaxe básica (tem de ter exatamente dois lados separados por ':')
         if ":" not in arg or arg.count(":") != 1:
             print(f"Error - invalid parameter '{arg}'")
             continue
@@ -47,18 +45,13 @@ def main():
     item_list = list(inventory.keys())
     print(f"Item list: {item_list}")
 
-    # 4. Calcular o total de itens
     total_quantity = sum(inventory.values())
     print(f"Total quantity of the {len(item_list)} items: {total_quantity}")
 
-    # 5. Exibir a percentagem que cada item representa (com 1 casa decimal e % no fim)
     for item, qty in inventory.items():
         percentage = (qty / total_quantity) * 100
         print(f"Item {item} represents {percentage:.1f}%")
 
-    # 6. Encontrar os itens mais e menos abundantes
-    # Em caso de empate, o enunciado pede para manter o PRIMEIRO que apareceu.
-    # Como o dicionário em Python preserva a ordem de inserção, uma procura simples resolve.
     most_abundant_item = None
     max_qty = -1
 
