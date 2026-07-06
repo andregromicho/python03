@@ -1,7 +1,7 @@
 import random
-from typing import Generator
+import typing
 
-# Global constants for configuration
+
 PLAYERS: tuple[str, ...] = (
     "Alex",
     "Blair",
@@ -28,7 +28,7 @@ ACTIONS: tuple[str, ...] = (
 )
 
 
-def gen_event() -> Generator[tuple[str, str], None, None]:
+def gen_event() -> typing.Generator[tuple[str, str], None, None]:
     while True:
         name = random.choice(PLAYERS)
         action = random.choice(ACTIONS)
@@ -37,14 +37,14 @@ def gen_event() -> Generator[tuple[str, str], None, None]:
 
 def consume_event(
     event_list: list[tuple[str, str]],
-) -> Generator[tuple[str, str], None, None]:
+) -> typing.Generator[tuple[str, str], None, None]:
     while len(event_list) > 0:
         index = random.randint(0, len(event_list) - 1)
         event = event_list.pop(index)
         yield event
 
 
-def main():
+def main() -> None:
     print("=== Game Data Stream Processor ===")
 
     event_gen = gen_event()

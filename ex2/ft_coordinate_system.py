@@ -2,7 +2,7 @@ import math
 
 
 class err_syntax(Exception):
-    def __init__(self, msg: str = "Invalid syntax"):
+    def __init__(self, msg: str = "Invalid syntax") -> None:
         super().__init__(msg)
 
 
@@ -20,11 +20,17 @@ def get_player_pos() -> tuple[float, float, float]:
         print(f"{e}")
         return get_player_pos()
 
-    coord_float = []
     try:
-        for i in coord_str:
-            current_coord = i.strip()
-            coord_float.append(float(current_coord))
+        current_coord = coord_str[0].strip()
+        x = float(current_coord)
+
+        current_coord = coord_str[1].strip()
+        y = float(current_coord)
+
+        current_coord = coord_str[2].strip()
+        z = float(current_coord)
+
+        return (x, y, z)
     except ValueError:
         print(
             f"Error on parameter '{current_coord}': "
@@ -32,13 +38,8 @@ def get_player_pos() -> tuple[float, float, float]:
         )
         return get_player_pos()
 
-    x = coord_float[0]
-    y = coord_float[1]
-    z = coord_float[2]
-    return (x, y, z)
 
-
-def main():
+def main() -> None:
     print("=== Game Coordinate System ===")
 
     print("Get a first set of coordinates")

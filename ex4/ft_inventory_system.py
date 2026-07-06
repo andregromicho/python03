@@ -2,22 +2,19 @@ import sys
 
 
 def parse_arguments() -> dict[str, int]:
-    """Processa os argumentos da linha de comandos e devolve o inventário."""
     inventory = {}
 
     for arg in sys.argv[1:]:
-        if ":" not in arg or arg.count(":") != 1:
+        if arg.count(":") != 1:
             print(f"Error - invalid parameter '{arg}'")
             continue
 
         item, qty_str = arg.split(":")
 
-        # Verificar se o item já foi adicionado antes (redundante)
         if item in inventory:
             print(f"Redundant item '{item}' - discarding")
             continue
 
-        # Tentar converter a quantidade para número inteiro
         try:
             qty = int(qty_str)
             inventory[item] = qty
@@ -27,21 +24,17 @@ def parse_arguments() -> dict[str, int]:
     return inventory
 
 
-def main():
+def main() -> None:
     print("=== Inventory System Analysis ===")
 
-    # 1. Obter o inventário a partir dos argumentos
     inventory = parse_arguments()
 
-    # Se o inventário estiver vazio após o parse (nenhum argumento válido)
     if not inventory:
         print("Got inventory: {}")
         return
 
-    # 2. Exibir o inventário
     print(f"Got inventory: {inventory}")
 
-    # 3. Criar e exibir a lista com os nomes de todos os itens
     item_list = list(inventory.keys())
     print(f"Item list: {item_list}")
 
@@ -71,7 +64,6 @@ def main():
         f"Item least abundant: {least_abundant_item} with quantity {min_qty}"
     )
 
-    # 7. Atualizar o inventário com um novo item utilizando o dict.update()
     inventory.update({"magic_item": 1})
     print(f"Updated inventory: {inventory}")
 

@@ -25,8 +25,8 @@ def gen_player_achievements() -> set[str]:
     return set(player_list)
 
 
-def main():
-    print("=== Achievement Tracker System ===")
+def main() -> None:
+    print("=== Achievement Tracker System ===\n")
 
     players = {
         "Alice": gen_player_achievements(),
@@ -38,12 +38,14 @@ def main():
     for name, achievements in players.items():
         print(f"Player {name}: {achievements}")
 
+    print()
+
     all_sets = list(players.values())
     all_distinct = set.union(*all_sets)
-    print(f"All distinct achievements: {all_distinct}")
+    print(f"All distinct achievements: {all_distinct}\n")
 
     common_achievements = set.intersection(*all_sets)
-    print(f"Common achievements: {common_achievements}")
+    print(f"Common achievements: {common_achievements}\n")
 
     for name, current_set in players.items():
         others_combined = set().union(
@@ -51,6 +53,8 @@ def main():
         )
         unique_to_player = current_set.difference(others_combined)
         print(f"Only {name} has: {unique_to_player}")
+
+    print()
 
     full_catalog = set(ALL_ACHIEVEMENTS)
     for name, current_set in players.items():

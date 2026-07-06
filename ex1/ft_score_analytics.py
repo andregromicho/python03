@@ -36,7 +36,7 @@ def ft_score_analytics() -> None:
     print(f"Scores processed: {valid_scores}")
     print(f"Total players: {total_players}")
     print(f"Total score: {total_score}")
-    print(f"Average score: {average_score}")
+    print(f"Average score: {average_score:.2}")
     print(f"High score: {high_score}")
     print(f"Low score: {low_score}")
     print(f"Score range: {range_score}")
